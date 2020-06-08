@@ -1,6 +1,8 @@
 package com.example.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +26,6 @@ public class UsersTab extends Fragment {
     private ArrayList mArrayList;
     private ArrayAdapter mArrayAdapter;
     //private TextView txtLoadingUsers;
-
-
-
         public UsersTab() {
         // Required empty public constructor
     }
@@ -35,7 +34,8 @@ public class UsersTab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, 2000);
     }
 
     @Override
@@ -56,7 +56,8 @@ public class UsersTab extends Fragment {
 
         ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
 
-        parseQuery.whereNotEqualTo("username", ParseUser.getCurrentUser().get("username"));
+
+        //parseQuery.whereNotEqualTo("username", ParseUser.getCurrentUser().get("username"));
 
         parseQuery.findInBackground(new FindCallback<ParseUser>() {
             @Override
